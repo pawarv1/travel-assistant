@@ -51,61 +51,336 @@
 }
 
 #root {
-  width: 1126px;
+  width: 100vw;
   max-width: 100%;
   margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
   min-height: 100svh;
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
+  background: var(--bg);
 }
 
 body {
   margin: 0;
+  background: var(--bg);
 }
 
-h1,
-h2 {
+h1, h2 {
   font-family: var(--heading);
   font-weight: 500;
   color: var(--text-h);
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
 h2 {
   font-size: 24px;
   line-height: 118%;
   letter-spacing: -0.24px;
   margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
 }
+
 p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+/* =========================================
+   🚀 PREMIUM DASHBOARD UI
+   ========================================= */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px; 
+  min-height: 100vh;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
-code {
+.glass-header {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px 30px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  flex-wrap: wrap; 
+  gap: 20px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, var(--accent), #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.brand .icon {
+  font-size: 28px;
+}
+
+.search-console {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: var(--bg);
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+}
+
+.glass-input {
+  background: transparent;
+  border: none;
+  color: var(--text-h);
+  padding: 8px;
+  font-family: var(--sans);
   font-size: 15px;
-  line-height: 135%;
+  outline: none;
+  width: 180px;
+}
+
+.glass-input::placeholder {
+  color: var(--text);
+  opacity: 0.6;
+}
+
+.arrow {
+  color: var(--accent);
+  font-weight: bold;
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-family: var(--heading);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px var(--accent-bg);
+}
+
+.primary-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   🗺️ PRO MAP STYLING
+   ========================================= */
+
+.dashboard-main {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.pro-map-wrapper {
+  margin: 0;
+  width: 100%;
+  flex-grow: 1; 
+  border-radius: 16px;
+  border: 1px solid var(--border); 
+  box-shadow: var(--shadow);
+  padding: 8px;
+  background: var(--code-bg);
+}
+
+.pro-map-container {
+  height: 70vh;
+  width: 100%;
+  border-radius: 10px;
+  z-index: 1; 
+}
+
+/* Custom, Decked-Out Popups */
+.pro-popup .leaflet-popup-content-wrapper {
+  background: var(--bg);
+  color: var(--text-h);
+  border-radius: 8px;
+  border: 1px solid var(--accent-border);
+  box-shadow: var(--shadow);
+}
+
+.pro-popup .leaflet-popup-tip {
+  background: var(--bg);
+}
+
+.popup-content h3 {
+  margin: 0 0 5px 0;
+  color: var(--accent);
+  font-family: var(--heading);
+  font-size: 16px;
+}
+
+.price-tag {
+  display: inline-block;
+  background: var(--accent-bg);
+  color: var(--accent);
   padding: 4px 8px;
+  margin-top: 5px;
+  border-radius: 4px;
+  font-weight: bold;
+  font-family: var(--mono);
+}
+
+
+/* =========================================
+   🚀 PREMIUM DASHBOARD UI
+   ========================================= */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1400px; /* Made even wider for split screen */
+  height: 100vh;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  overflow: hidden; /* Prevents whole page scrolling */
+}
+
+.glass-header {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 30px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  box-shadow: var(--shadow);
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  background: linear-gradient(to right, var(--accent), #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* --- THE SPLIT SCREEN LAYOUT --- */
+.dashboard-main {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  flex-grow: 1;
+  height: calc(100vh - 120px); 
+}
+
+/* Left Panel */
+.planner-panel {
+  flex: 1; /* Takes up 1 fraction of space */
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto; /* Allows scrolling if form gets long */
+}
+
+.planner-card {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: var(--shadow);
+}
+
+/* Form Styles */
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: var(--text);
+  font-weight: 600;
+}
+
+.row-group {
+  display: flex;
+  gap: 12px;
+}
+
+.glass-input {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  color: var(--text-h);
+  padding: 12px;
+  border-radius: 8px;
+  font-family: var(--sans);
+  font-size: 15px;
+  outline: none;
+  transition: border 0.2s ease;
+}
+
+.glass-input:focus {
+  border-color: var(--accent);
+}
+
+textarea.glass-input {
+  resize: vertical;
+}
+
+.full-width {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.primary-btn {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-family: var(--heading);
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px var(--accent-bg);
+  margin-top: 10px;
+}
+
+.primary-btn:hover {
+  filter: brightness(1.1);
+  transform: translateY(-2px);
+}
+
+/* Right Panel (Map) */
+.map-panel {
+  flex: 2; /* Takes up 2 fractions (twice as big as the planner) */
+  display: flex;
+  flex-direction: column;
+}
+
+.pro-map-wrapper {
+  flex-grow: 1;
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid var(--border); 
+  box-shadow: var(--shadow);
+  padding: 8px;
   background: var(--code-bg);
 }
