@@ -1,0 +1,23 @@
+{
+  "location": {
+    "latitude": 28.5383,
+    "longitude": -81.3792,
+    "city": "Holden Heights",
+    "state": "FL"
+  },
+  "grid": {
+    "office": "MLB",
+    "gridX": 26,
+    "gridY": 68
+  },
+  "forecast_endpoints": {
+    "forecast": "https://api.weather.gov/gridpoints/MLB/26,68/forecast",
+    "forecast_hourly": "https://api.weather.gov/gridpoints/MLB/26,68/forecast/hourly",
+    "forecast_grid_data": "https://api.weather.gov/gridpoints/MLB/26,68"
+  },
+  "observation_stations": "https://api.weather.gov/gridpoints/MLB/26,68/stations",
+  "fire_weather_zone": "https://api.weather.gov/zones/fire/FLZ045",
+  "forecast_zone": "https://api.weather.gov/zones/forecast/FLZ045",
+  "county": "https://api.weather.gov/zones/county/FLC095",
+  "time_zone": "America/New_York"
+}

@@ -214,3 +214,7 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+mutagen.yml.lock
+get_gpu.sh
+

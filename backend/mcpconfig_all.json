@@ -1,0 +1,73 @@
+{
+  "mcpServers": {
+    "open-meteo": {
+      "command": "npx",
+      "args": ["-y", "-p", "open-meteo-mcp-server", "open-meteo-mcp-server"]
+    },
+    "flight-search": {
+      "command": "uv",
+      "args": [
+        "--directory", "/home/hpc/stonera3/source/repos/travel-assistant/backend/mcp_servers/mcp_travelassistant/servers/flight_server",
+        "run", "python", "flight_server.py"
+      ],
+      "env": {
+        "SERPAPI_KEY": "${SERPAPI_KEY}"
+      }
+    },
+    "hotel-search": {
+      "command": "uv", 
+      "args": [
+        "--directory", "/home/hpc/stonera3/source/repos/travel-assistant/backend/mcp_servers/mcp_travelassistant/servers/hotel_server",
+        "run", "python", "hotel_server.py"
+      ],
+      "env": {
+        "SERPAPI_KEY": "${SERPAPI_KEY}"
+      }
+
+    },
+    "event-search": {
+      "command": "uv",
+      "args": [
+        "--directory", "/home/hpc/stonera3/source/repos/travel-assistant/backend/mcp_servers/mcp_travelassistant/servers/event_server", 
+        "run", "python", "event_server.py"
+      ],
+      "env": {
+        "SERPAPI_KEY": "${SERPAPI_KEY}"
+      }
+    },
+    "geocoder": {
+      "command": "uv",
+      "args": [
+        "--directory", "/home/hpc/stonera3/source/repos/travel-assistant/backend/mcp_servers/mcp_travelassistant/servers/geocoder_server",
+        "run", "python", "geocoder_server.py" 
+      ]
+    },
+    "weather-search": {
+      "command": "uv",
+      "args": [
+        "--directory", "/home/hpc/stonera3/source/repos/travel-assistant/backend/mcp_servers/mcp_travelassistant/servers/weather_server",
+        "run", "python", "weather_server.py"
+      ]
+    },
+    "finance-search": {
+      "command": "uv", 
+      "args": [
+        "--directory", "/home/hpc/stonera3/source/repos/travel-assistant/backend/mcp_servers/mcp_travelassistant/servers/finance_server",
+        "run", "python", "finance_server.py"
+      ],
+      "env": {
+        "SERPAPI_KEY": "${SERPAPI_KEY}"
+      }
+    },
+    "eventbrite": {
+      "command": "npx",
+      "args": ["-y", "@ibraheem4/eventbrite-mcp"],
+      "env": {
+        "EVENTBRITE_API_KEY": "${EVENTBRITE_API_KEY}"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+
