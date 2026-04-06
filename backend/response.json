@@ -1,0 +1,68 @@
+{
+  "destination": "string",
+  "trip_duration": "string",
+  "best_time_to_visit": "string",
+  "trip_summary": "string",
+  "budget_estimate": "string (use real flight data found)",
+  "getting_there": "string (mention specific airlines, prices, durations found)",
+  "data_freshness": "string e.g. 'Flight & event data as of April 2026'",
+  "flights": [
+    {
+      "route": "JFK → CDG",
+      "airlines": ["Air France", "Delta"],
+      "price_range": "$620-$950 round trip",
+      "duration": "~8h direct",
+      "notes": "Best prices ~6 weeks out. Book direct for best baggage allowance."
+    }
+  ],
+  "live_events": [
+    {
+      "name": "string",
+      "date": "string",
+      "venue": "string",
+      "category": "Music|Festival|Sports|Art|Food|Culture",
+      "description": "string",
+      "ticket_info": "string or null"
+    }
+  ],
+  "rooming": [
+    {
+      "name": "string",
+      "date": "string",
+      "type": "string",
+      "location": "string",
+      "prices": "string",
+      "amenities": ["string"],
+      "ratings": ["string"]
+    }
+  ],
+  "weather": [
+    {
+        "forecast": "string",
+        "temperature": "string"
+    }
+  ],
+  "packing_essentials": ["string"],
+  "practical_tips": ["string"],
+  "days": [
+    {
+      "day": 1,
+      "date_label": "Day 1 - Arrival & First Impressions",
+      "theme": "string",
+      "activities": [
+        {
+          "time": "9:00 AM",
+          "activity": "string",
+          "description": "string",
+          "duration": "string",
+          "estimated_cost": "string or null",
+          "tips": "string or null",
+          "is_live_event": false
+        }
+      ],
+      "dining_suggestions": ["string"],
+      "accommodation_note": "string or null"
+    }
+  ]
+}
+

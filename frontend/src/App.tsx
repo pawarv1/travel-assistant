@@ -1,10 +1,10 @@
-import Map from "./components/Map";
+import TravelPlannerUI from "./components/TravelPlannerUI";
 
 function App() {
   return (
     <div>
-      <h1>My Leaflet.js and React Map</h1>
-      <Map/>
+      <h1>Travel Planner UI</h1>
+      <TravelPlannerUI></TravelPlannerUI>
     </div>
   );
 }
