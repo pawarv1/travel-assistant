@@ -1,0 +1,14 @@
+sync:
+  transformer:
+    alpha: "stonera3@elsa.hpc.tcnj.edu:~/source/repos/travel-assistant/"
+    beta: "~/source/repos/travel-assistant/"
+    ignore:
+      vcs: true
+      paths:
+        - ".venv"
+        - "__pycache__"
+        - "*.pyc"
+        - "*.pyo"
+        - "*.pt"
+        - "*.out"
+        - "**/node_modules"

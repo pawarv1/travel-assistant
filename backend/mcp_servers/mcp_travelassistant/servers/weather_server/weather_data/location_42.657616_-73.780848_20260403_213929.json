@@ -1,0 +1,23 @@
+{
+  "location": {
+    "latitude": 42.657616,
+    "longitude": -73.780848,
+    "city": "Albany",
+    "state": "NY"
+  },
+  "grid": {
+    "office": "ALY",
+    "gridX": 71,
+    "gridY": 63
+  },
+  "forecast_endpoints": {
+    "forecast": "https://api.weather.gov/gridpoints/ALY/71,63/forecast",
+    "forecast_hourly": "https://api.weather.gov/gridpoints/ALY/71,63/forecast/hourly",
+    "forecast_grid_data": "https://api.weather.gov/gridpoints/ALY/71,63"
+  },
+  "observation_stations": "https://api.weather.gov/gridpoints/ALY/71,63/stations",
+  "fire_weather_zone": "https://api.weather.gov/zones/fire/NYZ208",
+  "forecast_zone": "https://api.weather.gov/zones/forecast/NYZ052",
+  "county": "https://api.weather.gov/zones/county/NYC001",
+  "time_zone": "America/New_York"
+}
