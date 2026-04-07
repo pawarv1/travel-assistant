@@ -1,5 +1,7 @@
 import React, { useMemo, useState } from "react";
 
+import { getItinerary } from "../services/itinerary.js";
+
 // ---------- Types ----------
 type FlightSegment = {
   airline: string;

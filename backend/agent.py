@@ -7,6 +7,7 @@ from pydantic_ai.providers.ollama import OllamaProvider
 from pydantic_ai.mcp import load_mcp_servers
 from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.common_tools.duckduckgo import duckduckgo_search_tool
+from pydantic_ai.models.test import TestModel
 
 import models
 
@@ -14,22 +15,29 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 
 
-async def generate_response(agent: Agent[None, models.TravelItinerary], prompt: str, history: list):
-    async with agent:
-        # generate response from agent (inference)
-        response = await agent.run(prompt, message_history=history)
+async def generate_response(agent: Agent[None, models.TravelItinerary], prompt: str, history: list, dry_run: bool = False):
+    
+    if dry_run:
+        with agent.override(model=TestModel()):
+            async with agent:
+                # generate response from agent (inference)
+                response = await agent.run(prompt, message_history=history)
+    else:
+        async with agent:
+            # generate response from agent (inference)
+            response = await agent.run(prompt, message_history=history)
+            
+    # parse json response and history from result 
+    output = response.output
+    history = response.all_messages()
 
-        # parse json response and history from result 
-        output = response.output
-        history = response.all_messages()
- 
-        # log messages
-        for message in response.all_messages():
-            print(message)
-            print("---------------------------")
-        print(output)
+    # log messages
+    for message in history:
+        print(message)
+        print("---------------------------")
+    print(output)
 
-        return output, history
+    return output, history
 
 
 def load_agent():

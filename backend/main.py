@@ -21,6 +21,7 @@ async def read_item(item_id: int, q: str | None = None):
     return {"item_id": item_id, "q": q}
 
 @app.get("/itinerary")
-async def generate_itinerary(prompt: str) -> TravelItinerary:
-    itinerary, history = await generate_response(cool_agent, prompt, [])
+async def generate_itinerary(prompt: str, dry_run: bool = False) -> TravelItinerary:
+    itinerary, history = await generate_response(cool_agent, prompt, [], dry_run=dry_run)
+    
     return itinerary
