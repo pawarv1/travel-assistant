@@ -1,7 +1,15 @@
+from dotenv import load_dotenv
 from fastapi import FastAPI
 
-app = FastAPI()
+from agent import load_agent, generate_response
+from models import TravelItinerary
 
+# load environment variables
+load_dotenv()
+
+cool_agent = load_agent()
+
+app = FastAPI()
 
 @app.get("/")
 async def read_root():
@@ -12,37 +20,7 @@ async def read_root():
 async def read_item(item_id: int, q: str | None = None):
     return {"item_id": item_id, "q": q}
 
-@app.get("/ai")
-async def generate_itinerary(context: str):
-    # send ai the context (maybe format it first)
-    
-    # ai will generate an itinerary, maybe asking for more info or something like that
-    
-    # needs to be in a specific json format like:
-    # {
-    #   flights: [
-    #       {
-    #           type: departure,
-    #           url: blahblahblah.com/flight10101001,
-    #           source: newark,
-    #           destination: bali,
-    #           length: 2 billion hours,
-    #           cost: 1 dolla,
-    #           airline: jetblue,
-    #           other_info: YAY
-    #       },
-    #       {
-    #           type: return,
-    #           blahblahblah....
-    #       }
-    #   ],
-    #   hotels: [],
-    #   events: [],
-    #   timeline: [],
-    #   other_stuff: ...
-    # }
-    
-    # validate json format, if incorrect maybe retry?
-
-    # return formatted itinerary
-    return {"response": "How can I help you?"}
+@app.get("/itinerary")
+async def generate_itinerary(prompt: str) -> TravelItinerary:
+    itinerary, history = await generate_response(cool_agent, prompt, [])
+    return itinerary
