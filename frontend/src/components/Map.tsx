@@ -1,22 +1,45 @@
-import { useRef } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
+import { useRef } from 'react';
+import { MapContainer, TileLayer } from 'react-leaflet';
+import L from 'leaflet';
+import 'leaflet/dist/leaflet.css';
+
+// Static assets for default Leaflet marker icons
+// @ts-ignore
+import icon from 'leaflet/dist/images/marker-icon.png';
+// @ts-ignore
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+
+const DefaultIcon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+});
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const Map = () => {
     const mapRef = useRef(null);
-    const latitude = 51.505;
-    const longitude = -0.09;
+    const center: [number, number] = [40.265, -74.781];
 
-    return ( 
-        // Make sure you set the height and width of the map container otherwise the map won't show
-        <MapContainer center={[latitude, longitude]} zoom={13} ref={mapRef} style={{height: "100vh", width: "100vw"}}>
-            <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {/* Additional map layers or components can be added here */}
-        </MapContainer>
+    return (
+        <div className="pro-map-wrapper">
+            <MapContainer
+                center={center}
+                zoom={9}
+                ref={mapRef}
+                scrollWheelZoom={true}
+                className="pro-map-container"
+            >
+                <TileLayer
+                    attribution='&copy; <a href="https://www.maptiler.com/copyright/" target="_blank" rel="noreferrer">MapTiler</a>'
+                    url="https://api.maptiler.com/maps/basic-v2-dark/{z}/{x}/{y}.png?key=Fhb4Hebiu4SN3z8jHSmb"
+                />
+
+
+            </MapContainer>
+        </div>
     );
-}
+};
 
 export default Map;
