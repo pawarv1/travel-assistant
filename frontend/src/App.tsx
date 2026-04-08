@@ -1,8 +1,11 @@
 import Map from './components/Map'; 
+import TravelPlannerUI from './components/TravelPlannerUI';
+import { useState } from 'react';
 
 export default function App() {
+  const [locations, setLocations] = useState<{ name: string; lat: number; lng: number; category: string }[]>([]);
   return (
-    <div className="app-container">
+    <div className="app-container h-screen flex flex-col">
       
       {/* HEADER */}
       <header className="glass-header">
@@ -12,49 +15,16 @@ export default function App() {
       </header>
 
       {/* SPLIT SCREEN DASHBOARD */}
-      <main className="dashboard-main">
+      <main className="dashboard-main flex h-full">
         
-        {/* LEFT PANEL: The AI Planner Form */}
-        <section className="planner-panel">
-          <div className="planner-card">
-            <h2>Plan Your Trip</h2>
-            
-            <div className="input-group">
-              <label>Destination (or Vibe)</label>
-              <input type="text" placeholder="e.g. Miami, or 'Somewhere tropical'" className="glass-input full-width" />
-            </div>
-
-            <div className="row-group">
-              <div className="input-group">
-                <label>Dates</label>
-                <input type="text" placeholder="e.g. Next weekend" className="glass-input full-width" />
-              </div>
-              <div className="input-group">
-                <label>Budget</label>
-                <select className="glass-input full-width">
-                  <option>Backpacker</option>
-                  <option>Standard</option>
-                  <option>Luxury</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="input-group">
-              <label>Interests & Must-Dos</label>
-              <textarea 
-                placeholder="Food, museums, nightlife, less walking..." 
-                className="glass-input full-width" 
-                rows={3}
-              />
-            </div>
-
-            <button className="primary-btn full-width">Generate Itinerary</button>
-          </div>
+        {/* LEFT PANEL: The Travel Planner UI */}
+        <section className="planner-panel w-1/2">
+          <TravelPlannerUI onLocationsChange={setLocations} />
         </section>
 
         {/* RIGHT PANEL: The WebGL Map */}
-        <section className="map-panel">
-          <Map />
+        <section className="map-panel w-1/2" style={{ height: 'calc(100vh - 100px)' }}>
+          <Map locations={locations} />
         </section>
 
       </main>

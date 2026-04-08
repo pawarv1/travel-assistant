@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 
 // ---------- Types ----------
 type FlightSegment = {
@@ -27,6 +27,9 @@ type Activity = {
   name: string;
   description: string;
   location: string;
+  latitude: number;
+  longitude: number;
+  category: string; // e.g., "attraction", "restaurant", "entertainment"
   start_time: string;
   end_time: string;
   estimated_cost_usd: number;
@@ -37,6 +40,9 @@ type Activity = {
 type Hotel = {
   name: string;
   address: string;
+  latitude: number;
+  longitude: number;
+  category: string; // "stay"
   check_in_date: string;
   check_out_date: string;
   estimated_cost_per_night_usd: number;
@@ -88,6 +94,9 @@ const sampleTrip: TripPlan = {
       hotel: {
         name: "North Shore Retreat Hotel",
         address: "99 Waimea Falls Dr, Waialua, HI 96791, USA",
+        latitude: 21.637,
+        longitude: -158.065,
+        category: "stay",
         check_in_date: "2024-05-15",
         check_out_date: "2024-05-18",
         estimated_cost_per_night_usd: 250,
@@ -121,10 +130,26 @@ const sampleTrip: TripPlan = {
         {
           name: "Waimea Falls Park Adventure",
           description: "A water sports park with natural swimming pools and a waterfall.",
-          location: "",
+          location: "Waimea Falls Park",
+          latitude: 21.637,
+          longitude: -158.065,
+          category: "attraction",
           start_time: "10:30",
           end_time: "14:00",
           estimated_cost_usd: 50,
+          url: "",
+          notes: "",
+        },
+        {
+          name: "Haleiwa Joe's Seafood Restaurant",
+          description: "Fresh seafood with ocean views.",
+          location: "Haleiwa",
+          latitude: 21.59,
+          longitude: -158.11,
+          category: "restaurant",
+          start_time: "18:00",
+          end_time: "20:00",
+          estimated_cost_usd: 80,
           url: "",
           notes: "",
         },
@@ -153,9 +178,10 @@ type TabKey = "overview" | "days" | "tips";
 
 type Props = {
   initialData?: TripPlan;
+  onLocationsChange?: (locations: { name: string; lat: number; lng: number; category: string }[]) => void;
 };
 
-export default function TravelPlannerUI({ initialData = sampleTrip }: Props) {
+export default function TravelPlannerUI({ initialData = sampleTrip, onLocationsChange }: Props) {
   const [trip] = useState<TripPlan>(initialData);
   const [tab, setTab] = useState<TabKey>("overview");
   const [query, setQuery] = useState<string>("");
@@ -181,6 +207,40 @@ export default function TravelPlannerUI({ initialData = sampleTrip }: Props) {
       return [activityText, transportText, hotelText, dayText].some((text) => text.includes(q));
     });
   }, [query, trip.days]);
+
+  useEffect(() => {
+    if (onLocationsChange) {
+      const locations: { name: string; lat: number; lng: number; category: string }[] = [];
+      const seen = new Set<string>();
+      filteredDays.forEach((day) => {
+        // Add hotel
+        const hotelKey = `${day.hotel.name}-${day.hotel.latitude}-${day.hotel.longitude}`;
+        if (!seen.has(hotelKey)) {
+          seen.add(hotelKey);
+          locations.push({
+            name: day.hotel.name,
+            lat: day.hotel.latitude,
+            lng: day.hotel.longitude,
+            category: day.hotel.category,
+          });
+        }
+        // Add activities
+        day.activities.forEach((activity) => {
+          const activityKey = `${activity.name}-${activity.latitude}-${activity.longitude}`;
+          if (!seen.has(activityKey)) {
+            seen.add(activityKey);
+            locations.push({
+              name: activity.name,
+              lat: activity.latitude,
+              lng: activity.longitude,
+              category: activity.category,
+            });
+          }
+        });
+      });
+      onLocationsChange(locations);
+    }
+  }, [filteredDays, onLocationsChange]);
 
   return (
     <div style={{ padding: 20, fontFamily: "sans-serif", lineHeight: 1.4 }}>
