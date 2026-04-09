@@ -1,9 +1,10 @@
 async function getItinerary(prompt) {
-  const FASTAPI_URL = process.env.FASTAPI_URL || 'http://localhost:8000';
+  console.log("function hit")
+  const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL || "http://localhost:8000";
   const url = `${FASTAPI_URL}/itinerary`;
   try {
     const response = await fetch(url, {
-      method: 'POST',
+      method: "POST",
         headers: {
           'Content-Type': 'application/json'
       },
@@ -15,7 +16,7 @@ async function getItinerary(prompt) {
     if (!response.ok) {
       throw new Error(`Response status: ${response.status}`);
     }
-    return response.json()
+    return await response.json()
   }
   catch (error) {
     console.error(error.message)

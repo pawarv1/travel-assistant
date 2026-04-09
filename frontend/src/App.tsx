@@ -1,10 +1,10 @@
 import TravelPlannerUI from "./components/TravelPlannerUI";
+import TravelItineraryApp from "./components/TravelItinerary";
 
 function App() {
   return (
     <div>
-      <h1>Travel Planner UI</h1>
-      <TravelPlannerUI></TravelPlannerUI>
+      <TravelItineraryApp></TravelItineraryApp>
     </div>
   );
 }

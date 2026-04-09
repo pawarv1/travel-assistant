@@ -13,4 +13,5 @@
 
 module add ollama
 export OLLAMA_MODELS=/scratch/$USER/ollama_models
+export OLLAMA_HOST=0.0.0.0:11436
 ollama serve
