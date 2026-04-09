@@ -1,0 +1,110 @@
+{
+  "title": "Tokyo Tech & Tradition Quick-Strike",
+  "destination": "Tokyo, Japan",
+  "origin": "New York, USA",
+  "start_date": "2024-11-01",
+  "end_date": "2024-11-03",
+  "total_days": 2,
+  "travelers": 2,
+  "summary": "A whirlwind 48-hour exploration of Tokyo's neon lights and serene shrines.",
+  "days": [
+    {
+      "day_number": 1,
+      "date": "2024-11-01",
+      "location": "Shinjuku & Shibuya",
+      "summary": "Arrival and immersion into the bustling heart of Tokyo.",
+      "transportation": [
+        {
+          "mode": "flight",
+          "from_address": "John F. Kennedy International Airport, NY",
+          "to_address": "Narita International Airport, Chiba",
+          "departure_time": "2024-11-01T10:00:00",
+          "arrival_time": "2024-11-02T13:30:00",
+          "estimated_cost_usd": 1200.0,
+          "segments": [
+            {
+              "airline": "Japan Airlines",
+              "departure_airport": "JFK",
+              "arrival_airport": "NRT",
+              "departure_time": "10:00",
+              "arrival_time": "13:30",
+              "url": "https://www.jal.co.jp"
+            }
+          ],
+          "url": "https://www.jal.co.jp",
+          "notes": "Terminal 8 at JFK"
+        },
+        {
+          "mode": "train",
+          "from_address": "Narita Airport Terminal 1",
+          "to_address": "Shinjuku Station",
+          "departure_time": "15:00",
+          "arrival_time": "16:15",
+          "estimated_cost_usd": 25.0,
+          "segments": [],
+          "url": "",
+          "notes": "Narita Express (N'EX)"
+        }
+      ],
+      "activities": [
+        {
+          "name": "Shibuya Crossing",
+          "description": "Experience the world's busiest pedestrian crossing.",
+          "address": "Shibuya, Tokyo 150-0043",
+          "start_time": "18:00",
+          "end_time": "19:00",
+          "estimated_cost_usd": 0.0,
+          "url": "",
+          "notes": "Great views from the Starbucks overhead."
+        }
+      ]
+    },
+    {
+      "day_number": 2,
+      "date": "2024-11-02",
+      "location": "Asakusa",
+      "summary": "A morning of culture followed by high-tech shopping.",
+      "transportation": [
+        {
+          "mode": "taxi",
+          "from_address": "Park Hyatt Tokyo",
+          "to_address": "Senso-ji Temple",
+          "departure_time": "09:00",
+          "arrival_time": "",
+          "estimated_cost_usd": 40.0,
+          "segments": [],
+          "url": "",
+          "notes": ""
+        }
+      ],
+      "activities": [
+        {
+          "name": "Senso-ji Temple",
+          "description": "Tokyo's oldest temple.",
+          "address": "2 Chome-3-1 Asakusa, Taito City",
+          "start_time": "09:30",
+          "end_time": "11:30",
+          "estimated_cost_usd": 0.0,
+          "url": "https://www.senso-ji.jp",
+          "notes": ""
+        }
+      ]
+    }
+  ],
+  "accomodations": [
+    {
+      "name": "Park Hyatt Tokyo",
+      "address": "3-7-1-2 Nishi-Shinjuku, Shinjuku-ku",
+      "check_in_date": "2024-11-01",
+      "check_out_date": "2024-11-03",
+      "estimated_cost_per_night_usd": 650.0,
+      "url": "https://www.hyatt.com",
+      "notes": "Iconic hotel from 'Lost in Translation'."
+    }
+  ],
+  "general_tips": [
+    "Purchase a Suica or Pasmo card for easy transit.",
+    "Cash is still king in smaller ramen shops.",
+    "Rental Wi-Fi is highly recommended for navigation."
+  ]
+}
