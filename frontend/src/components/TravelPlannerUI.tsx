@@ -177,11 +177,11 @@ function formatUsd(value: number): string {
 type TabKey = "overview" | "days" | "tips";
 
 type Props = {
+  onTripDataChange?: (tripData: TripPlan) => void;
   initialData?: TripPlan;
-  onLocationsChange?: (locations: { name: string; lat: number; lng: number; category: string }[]) => void;
 };
 
-export default function TravelPlannerUI({ initialData = sampleTrip, onLocationsChange }: Props) {
+export default function TravelPlannerUI({ initialData = sampleTrip, onTripDataChange }: Props) {
   const [trip] = useState<TripPlan>(initialData);
   const [tab, setTab] = useState<TabKey>("overview");
   const [query, setQuery] = useState<string>("");
@@ -209,38 +209,10 @@ export default function TravelPlannerUI({ initialData = sampleTrip, onLocationsC
   }, [query, trip.days]);
 
   useEffect(() => {
-    if (onLocationsChange) {
-      const locations: { name: string; lat: number; lng: number; category: string }[] = [];
-      const seen = new Set<string>();
-      filteredDays.forEach((day) => {
-        // Add hotel
-        const hotelKey = `${day.hotel.name}-${day.hotel.latitude}-${day.hotel.longitude}`;
-        if (!seen.has(hotelKey)) {
-          seen.add(hotelKey);
-          locations.push({
-            name: day.hotel.name,
-            lat: day.hotel.latitude,
-            lng: day.hotel.longitude,
-            category: day.hotel.category,
-          });
-        }
-        // Add activities
-        day.activities.forEach((activity) => {
-          const activityKey = `${activity.name}-${activity.latitude}-${activity.longitude}`;
-          if (!seen.has(activityKey)) {
-            seen.add(activityKey);
-            locations.push({
-              name: activity.name,
-              lat: activity.latitude,
-              lng: activity.longitude,
-              category: activity.category,
-            });
-          }
-        });
-      });
-      onLocationsChange(locations);
+    if (onTripDataChange) {
+      onTripDataChange(trip);
     }
-  }, [filteredDays, onLocationsChange]);
+  }, [trip, onTripDataChange]);
 
   return (
     <div style={{ padding: 20, fontFamily: "sans-serif", lineHeight: 1.4 }}>
