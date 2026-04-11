@@ -14,6 +14,7 @@ from pydantic_ai.models.function import FunctionModel, AgentInfo
 # from pydantic_ai.models.google import GoogleModel
 
 import models
+from geocoding import geocode_itinerary
 
 # import logging
 # logging.basicConfig(level=logging.DEBUG)
@@ -31,7 +32,11 @@ async def model_function(messages: list[ModelMessage], info: AgentInfo) -> Model
         )
     ])
 
-async def generate_response(agent: Agent[None, models.TravelItinerary], prompt: str, history: list, dry_run: bool = False):
+async def generate_response(
+    agent: Agent[None, models.TravelItinerary], 
+    prompt: str, history: list, 
+    dry_run: bool = False
+):
     
     if dry_run:
         with agent.override(model=FunctionModel(model_function)):
@@ -43,8 +48,11 @@ async def generate_response(agent: Agent[None, models.TravelItinerary], prompt: 
             response = await agent.run(prompt, message_history=history)
             
     # parse json response and history from result 
-    output = response.output
+    output: models.TravelItinerary = response.output
     history = response.all_messages()
+    
+    # --- Geocode every address in the itinerary --- 
+    output = await geocode_itinerary(output)
 
     # log messages
     for message in history:

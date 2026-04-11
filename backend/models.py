@@ -1,5 +1,5 @@
 from pydantic import BaseModel, Field
-from typing import List
+from typing import List, Optional
 from enum import Enum
 
 class TransportMode(str, Enum):
@@ -23,7 +23,11 @@ class FlightSegment(BaseModel):
 class Transportation(BaseModel):
     mode: TransportMode = Field(default=TransportMode.OTHER)
     from_address: str = Field(default="", description="Full physical address of origin")
+    from_lat: Optional[float] = Field(default=None, description="Latitude of origin address")
+    from_lng: Optional[float] = Field(default=None, description="Longitude of origin address")
     to_address: str = Field(default="", description="Full physical address of destination")
+    to_lat: Optional[float] = Field(default=None, description="Latitude of destination address")
+    to_lng: Optional[float] = Field(default=None, description="Longitude of destination address")
     departure_time: str = Field(default="", description="Departure time")
     arrival_time: str = Field(default="", description="Arrival time")
     estimated_cost_usd: float = Field(default=0.0, description="Estimated cost per person")
@@ -34,6 +38,8 @@ class Transportation(BaseModel):
 class Accomodation(BaseModel):
     name: str = Field(default="", description="Accomodation name")
     address: str = Field(default="", description="Full physical address of place of accomodation")
+    lat: Optional[float] = Field(default=None, description="Latitude of accommodation address")
+    lng: Optional[float] = Field(default=None, description="Longitude of accommodation address")
     check_in_date: str = Field(default="", description="Check-in date")
     check_out_date: str = Field(default="", description="Check-out date")
     estimated_cost_per_night_usd: float = Field(default=0.0, description="Cost per night")
@@ -44,6 +50,8 @@ class Activity(BaseModel):
     name: str = Field(default="", description="Activity name")
     description: str = Field(default="", description="Brief description of the activity")
     address: str = Field(default="", description="Full physical address where the activity takes place")
+    lat: Optional[float] = Field(default=None, description="Latitude of activity address")
+    lng: Optional[float] = Field(default=None, description="Longitude of activity address")
     start_time: str = Field(default="", description="Start time")
     end_time: str = Field(default="", description="End time")
     estimated_cost_usd: float = Field(default=0.0, description="Price per person")
