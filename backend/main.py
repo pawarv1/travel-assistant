@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import logfire
 
-from agent import load_agent, generate_response
+from agent import load_agents, generate_response
 from models import TravelItinerary, DayPlan, EventResponse
 
 class ItineraryRequest(BaseModel):
@@ -18,7 +18,7 @@ class ItineraryRequest(BaseModel):
 # load environment variables
 load_dotenv()
 
-cool_agent = load_agent()
+cool_agent, deps = load_agents()
 
 app = FastAPI()
 
@@ -45,7 +45,7 @@ async def generate_itinerary(request: ItineraryRequest) -> TravelItinerary:
     prompt = request.prompt
     dry_run = request.dry_run
 
-    itinerary, history = await generate_response(cool_agent, prompt, [], dry_run)
+    itinerary, history = await generate_response(cool_agent, prompt, [], deps, dry_run)
     
     # retrieve locations from itinerary
     locations = []

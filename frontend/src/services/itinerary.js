@@ -10,7 +10,7 @@ export async function getItinerary(prompt) {
       },
       body: JSON.stringify({ 
         "prompt": prompt,
-        "dry_run": true
+        "dry_run": false
       })
     });
     if (!response.ok) {
