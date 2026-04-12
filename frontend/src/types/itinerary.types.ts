@@ -11,6 +11,8 @@ export interface TravelEvent {
   start_time: string;
   end_time: string;
   location: string;
+  latitude: number;
+  longitude: number;
   cost_usd: number;
   url: string;
   notes: string;

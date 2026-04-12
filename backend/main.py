@@ -1,4 +1,6 @@
 from dotenv import load_dotenv
+import os
+import requests
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
@@ -6,7 +8,7 @@ from pydantic import BaseModel
 import logfire
 
 from agent import load_agent, generate_response
-from models import TravelItinerary
+from models import TravelItinerary, DayPlan, EventResponse
 
 class ItineraryRequest(BaseModel):
     prompt: str
@@ -20,6 +22,7 @@ cool_agent = load_agent()
 
 app = FastAPI()
 
+# set up logfire
 logfire.configure()
 logfire.instrument_pydantic_ai()
 logfire.instrument_fastapi(app)
@@ -37,15 +40,6 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-@app.get("/")
-async def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
-
 @app.post("/itinerary")
 async def generate_itinerary(request: ItineraryRequest) -> TravelItinerary:
     prompt = request.prompt
@@ -53,4 +47,70 @@ async def generate_itinerary(request: ItineraryRequest) -> TravelItinerary:
 
     itinerary, history = await generate_response(cool_agent, prompt, [], dry_run)
     
-    return itinerary
+    # retrieve locations from itinerary
+    locations = []
+    for day in itinerary.days:
+        for event in day.events:
+           locations.append(event.location)
+    
+    # find coordinates for each location
+    coordinates = geocode(locations)
+    
+    # prepare response itinerary from itinerary 
+    response_days: list[DayPlan[EventResponse]] = []
+
+    i = 0
+    for day in itinerary.days:
+        response_events: list[EventResponse] = []
+
+        for event in day.events:
+            if i >= len(coordinates):
+                raise ValueError("Number of coordinates does not match number of events.")
+            elif type(coordinates[i][0]) is float and type(coordinates[i][1]) is float:
+                latitude, longitude = coordinates[i]
+            else:
+                latitude, longitude = None, None
+            response_event = EventResponse(**event.model_dump(), latitude=latitude, longitude=longitude)
+            response_events.append(response_event)
+            i += 1
+
+        response_day = DayPlan[EventResponse](**day.model_dump(exclude={"events"}), events=response_events)
+        response_days.append(response_day)
+
+    response_itinerary = TravelItinerary[EventResponse](**itinerary.model_dump(exclude={"days"}),
+                                         days=response_days)
+
+    
+    print(response_itinerary)
+
+    return response_itinerary
+
+def geocode(locations: list[str]):
+    
+    json=[
+        {        
+            "q": location,
+            "limit": 1
+        } 
+        for location in locations
+    ]
+    
+    response = requests.post("https://api.mapbox.com/search/geocode/v6/batch",
+                        params={"access_token": os.getenv("MAPBOX_ACCESS_TOKEN")},
+                        json=json)
+    coordinates = []
+
+    response = response.json()
+
+    for feature in response["batch"]:
+        try:
+            coord = feature["features"][0]["geometry"]["coordinates"]
+            coordinates.append((coord[0], coord[1]))
+        except (KeyError, IndexError, TypeError):
+            coordinates.append((None, None))
+
+    return coordinates
+    
+
+        
+

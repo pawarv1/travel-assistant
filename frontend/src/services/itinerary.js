@@ -1,4 +1,4 @@
-async function getItinerary(prompt) {
+export async function getItinerary(prompt) {
   
   const FASTAPI_URL = import.meta.env.VITE_FASTAPI_URL || "http://localhost:8000";
   const url = `${FASTAPI_URL}/itinerary`;
@@ -10,7 +10,7 @@ async function getItinerary(prompt) {
       },
       body: JSON.stringify({ 
         "prompt": prompt,
-        "dry_run": false
+        "dry_run": true
       })
     });
     if (!response.ok) {
@@ -22,5 +22,3 @@ async function getItinerary(prompt) {
     console.error(error.message)
   }
 }
-
-export { getItinerary }

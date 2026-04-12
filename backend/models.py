@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field
 from datetime import datetime
-from typing import List, Optional
+from typing import List, Optional, TypeVar, Generic
 from enum import Enum
 
 class EventType(str, Enum):
@@ -20,18 +20,26 @@ class Event(BaseModel):
     url: str = Field(..., description="Official booking or info website")
     notes: str = Field(default="", description="Details like flight numbers or packing tips")
 
-class DayPlan(BaseModel):
+T = TypeVar("T", bound=Event)
+
+class DayPlan(BaseModel, Generic[T]):
     """A collection of events occurring on a specific calendar day."""
     day_number: int = Field(..., description="The sequence of the trip (e.g., 1, 2, 3)")
     date: str = Field(..., description="The specific calendar date for this day")
     summary: str = Field(..., description="A brief one-sentence highlight of the day")
-    events: List[Event] = Field(default_factory=list, description="All events in chronological order")
+    events: List[T] = Field(default_factory=list, description="All events in chronological order")
 
-class TravelItinerary(BaseModel):
+class TravelItinerary(BaseModel, Generic[T]):
     """The root schema for the entire generated trip."""
-    title: str = Field(..., description="A creative and catchy title for the trip")
+    title: str = Field(..., max_length=42, description="A creative and catchy title for the trip")
     destination: str = Field(..., description="Primary city and country being visited")
     origin: str = Field(..., description="The starting city and country")
     travelers: int = Field(default=1, ge=1, description="Number of people traveling")
-    days: List[DayPlan] = Field(..., description="The day-by-day breakdown of the itinerary")
+    days: List[DayPlan[T]] = Field(..., description="The day-by-day breakdown of the itinerary")
     general_tips: List[str] = Field(default_factory=list, description="Advice on visas, currency, and culture")
+
+class EventResponse(Event):
+    """Response model for Event."""
+    latitude: Optional[float] = Field(default=0, ge=-180, le=180, description="Latitude of the event location")
+    longitude: Optional[float] = Field(default=0, ge=-180, le=180,  description="Longitude of the event location")
+

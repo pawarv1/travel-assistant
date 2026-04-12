@@ -1,110 +1,201 @@
 {
-  "title": "Tokyo Tech & Tradition Quick-Strike",
-  "destination": "Tokyo, Japan",
-  "origin": "New York, USA",
-  "start_date": "2024-11-01",
-  "end_date": "2024-11-03",
-  "total_days": 2,
-  "travelers": 2,
-  "summary": "A whirlwind 48-hour exploration of Tokyo's neon lights and serene shrines.",
+  "title": "Disney World and Beach Getaway!",
+  "destination": "Orlando, Florida",
+  "origin": "New Jersey, USA",
+  "travelers": 1,
   "days": [
     {
       "day_number": 1,
-      "date": "2024-11-01",
-      "location": "Shinjuku & Shibuya",
-      "summary": "Arrival and immersion into the bustling heart of Tokyo.",
-      "transportation": [
+      "date": "2026-06-19",
+      "summary": "Welcome Ceremony: Travel day and first steps in Orlando.",
+      "events": [
         {
-          "mode": "flight",
-          "from_address": "John F. Kennedy International Airport, NY",
-          "to_address": "Narita International Airport, Chiba",
-          "departure_time": "2024-11-01T10:00:00",
-          "arrival_time": "2024-11-02T13:30:00",
-          "estimated_cost_usd": 1200.0,
-          "segments": [
-            {
-              "airline": "Japan Airlines",
-              "departure_airport": "JFK",
-              "arrival_airport": "NRT",
-              "departure_time": "10:00",
-              "arrival_time": "13:30",
-              "url": "https://www.jal.co.jp"
-            }
-          ],
-          "url": "https://www.jal.co.jp",
-          "notes": "Terminal 8 at JFK"
+          "event_type": "transport",
+          "title": "Flight from Newark to Orlando",
+          "start_time": "2026-06-19T08:30:00Z",
+          "end_time": "2026-06-19T13:45:00Z",
+          "location": "Orlando International Airport, 6007 S Orange Blossom Trl, Orlando, FL 32822, USA",
+          "cost_usd": 154,
+          "url": "https://www.expedia.com/lp/flights/ewr/mco/newark-liberty-intl-airport-to-orlando",
+          "notes": ""
         },
         {
-          "mode": "train",
-          "from_address": "Narita Airport Terminal 1",
-          "to_address": "Shinjuku Station",
-          "departure_time": "15:00",
-          "arrival_time": "16:15",
-          "estimated_cost_usd": 25.0,
-          "segments": [],
-          "url": "",
-          "notes": "Narita Express (N'EX)"
-        }
-      ],
-      "activities": [
+          "event_type": "transport",
+          "title": "Airport Transfer from Orlando to Disney World Hotel",
+          "start_time": "2026-06-19T15:30:00Z",
+          "end_time": "2026-06-19T17:45:00Z",
+          "location": "Disney's Coronado Springs Resort, 8000 W Osceola Pkwy, Lake Buena Vista, FL 32830, USA",
+          "cost_usd": 50,
+          "url": "https://disneyworld.disney.go.com/destinations/disneys-coronado-springs-resort/parking-lounge/?themeParksTicketType=one-day&arrivalDate=2026-06-19T05%3A00%3A00.487Z&departureDate=null",
+          "notes": ""
+        },
         {
-          "name": "Shibuya Crossing",
-          "description": "Experience the world's busiest pedestrian crossing.",
-          "address": "Shibuya, Tokyo 150-0043",
-          "start_time": "18:00",
-          "end_time": "19:00",
-          "estimated_cost_usd": 0.0,
-          "url": "",
-          "notes": "Great views from the Starbucks overhead."
+          "event_type": "lodging",
+          "title": "Check in to Disney's Coronado Springs Resort",
+          "start_time": "2026-06-19T18:00:00Z",
+          "end_time": "2026-06-19T20:30:00Z",
+          "location": "Disney's Coronado Springs Resort, 8000 W Osceola Pkwy, Lake Buena Vista, FL 32830, USA",
+          "cost_usd": 343,
+          "url": "https://disneyworld.disney.go.com/destinations/disneys-coronado-springs-resort/parking-lounge/?themeParksTicketType=one-day&arrivalDate=2026-06-19T05%3A00%3A00.487Z&departureDate=null",
+          "notes": ""
+        },
+        {
+          "event_type": "food",
+          "title": "Dinner at Disney Springs World Show Place Restaurant & Lounge",
+          "start_time": "2026-06-19T20:30:00Z",
+          "end_time": "2026-06-19T22:45:00Z",
+          "location": "Disney Springs, Disney World Drive, Lake Buena Vista, FL 32830, USA",
+          "cost_usd": 75,
+          "url": "https://worldshowplace.disney.com/",
+          "notes": ""
         }
       ]
     },
     {
       "day_number": 2,
-      "date": "2024-11-02",
-      "location": "Asakusa",
-      "summary": "A morning of culture followed by high-tech shopping.",
-      "transportation": [
+      "date": "2026-06-20",
+      "summary": "Full day in Walt Disney World Magic Kingdom.",
+      "events": [
         {
-          "mode": "taxi",
-          "from_address": "Park Hyatt Tokyo",
-          "to_address": "Senso-ji Temple",
-          "departure_time": "09:00",
-          "arrival_time": "",
-          "estimated_cost_usd": 40.0,
-          "segments": [],
+          "event_type": "transport",
+          "title": "Transfer from Hotel to Walt Disney World Magic Kingdom",
+          "start_time": "2026-06-20T09:30:00Z",
+          "end_time": "2026-06-20T11:00:00Z",
+          "location": "Magic Kingdom, Walt Disney World Resort, Orlando, Florida 32830",
+          "cost_usd": 59,
+          "url": "https://disneyworld.disney.go.com/parks/magic-kingdom/",
+          "notes": ""
+        },
+        {
+          "event_type": "activity",
+          "title": "Visit Walt Disney World Magic Kingdom Park",
+          "start_time": "2026-06-20T11:30:00Z",
+          "end_time": "2026-06-20T17:00:00Z",
+          "location": "Magic Kingdom, Walt Disney World Resort, Orlando, Florida 32830",
+          "cost_usd": 115,
+          "url": "https://disneyworld.disney.go.com/parks/magic-kingdom/",
+          "notes": ""
+        },
+        {
+          "event_type": "food",
+          "title": "Lunch at Carnivale de Brazil Pavilion Magic Kingdom Park",
+          "start_time": "2026-06-20T13:45:00Z",
+          "end_time": "2026-06-20T15:15:00Z",
+          "location": "Magic Kingdom, Walt Disney World Resort, Orlando, Florida 32830",
+          "cost_usd": 45,
+          "url": "",
+          "notes": ""
+        },
+        {
+          "event_type": "transport",
+          "title": "Transfer from Magic Kingdom back to Hotel",
+          "start_time": "2026-06-20T17:30:00Z",
+          "end_time": "2026-06-20T19:00:00Z",
+          "location": "Disney's Coronado Springs Resort, 8000 W Osceola Pkwy, Lake Buena Vista, FL 32830, USA",
+          "cost_usd": 59,
+          "url": "https://disneyworld.disney.go.com/destinations/disneys-coronado-springs-resort/parking-lounge/?themeParksTicketType=one-day&arrivalDate=2026-06-19T05%3A00%3A00.487Z&departureDate=null",
+          "notes": ""
+        },
+        {
+          "event_type": "food",
+          "title": "Dinner at Boma Steakhouse, Coronado Springs Resort",
+          "start_time": "2026-06-20T19:30:00Z",
+          "end_time": "2026-06-20T21:30:00Z",
+          "location": "Disney's Coronado Springs Resort, 8000 W Osceola Pkwy, Lake Buena Vista, FL 32830, USA",
+          "cost_usd": 75,
           "url": "",
           "notes": ""
         }
-      ],
-      "activities": [
+      ]
+    },
+    {
+      "day_number": 3,
+      "date": "2026-06-21",
+      "summary": "Relax and enjoy the day at the beach in Cocoa Beach and dine on great seafood.",
+      "events": [
         {
-          "name": "Senso-ji Temple",
-          "description": "Tokyo's oldest temple.",
-          "address": "2 Chome-3-1 Asakusa, Taito City",
-          "start_time": "09:30",
-          "end_time": "11:30",
-          "estimated_cost_usd": 0.0,
-          "url": "https://www.senso-ji.jp",
+          "event_type": "transport",
+          "title": "Transfer from Orlando to Cocoa Beach",
+          "start_time": "2026-06-21T07:30:00Z",
+          "end_time": "2026-06-21T10:45:00Z",
+          "location": "Cocoa Beach, FL 32922, USA",
+          "cost_usd": 158,
+          "url": "",
+          "notes": ""
+        },
+        {
+          "event_type": "activity",
+          "title": "Relax at the beach in Cocoa Beach",
+          "start_time": "2026-06-21T11:00:00Z",
+          "end_time": "2026-06-21T15:00:00Z",
+          "location": "Cocoa Beach, FL 32922, USA",
+          "cost_usd": 0,
+          "url": "",
+          "notes": ""
+        },
+        {
+          "event_type": "food",
+          "title": "Lunch at Norwood's Cocoa Beach TreeHouse Bar & Grill",
+          "start_time": "2026-06-21T15:30:00Z",
+          "end_time": "2026-06-21T17:45:00Z",
+          "location": "Cocoa Beach, FL 32922, USA",
+          "cost_usd": 68,
+          "url": "",
+          "notes": ""
+        },
+        {
+          "event_type": "transport",
+          "title": "Transfer back to Orlando from Cocoa Beach",
+          "start_time": "2026-06-21T18:30:00Z",
+          "end_time": "2026-06-21T21:45:00Z",
+          "location": "Orlando, FL 32801, USA",
+          "cost_usd": 179,
+          "url": "",
+          "notes": ""
+        },
+        {
+          "event_type": "food",
+          "title": "Final dinner in Orlando at The World Show Place Restaurant & Lounge,",
+          "start_time": "2026-06-21T22:30:00Z",
+          "end_time": "2026-06-21T23:59:59Z",
+          "location": "Disney Springs, Disney World Drive, Lake Buena Vista, FL 32830, USA",
+          "cost_usd": 52,
+          "url": "",
+          "notes": ""
+        }
+      ]
+    },
+    {
+      "day_number": 4,
+      "date": "2026-06-22",
+      "summary": "Departure Day.",
+      "events": [
+        {
+          "event_type": "transport",
+          "title": "Airport Transfer from Disney's Coronado Springs Resort to Orlando International Airport",
+          "start_time": "2026-06-22T06:45:00Z",
+          "end_time": "2026-06-22T08:45:00Z",
+          "location": "Orlando International Airport, 6007 S Orange Blossom Trl, Orlando, FL 32822, USA",
+          "cost_usd": 110,
+          "url": "",
+          "notes": ""
+        },
+        {
+          "event_type": "transport",
+          "title": "Flight from Orlando to Newark",
+          "start_time": "2026-06-22T11:45:00Z",
+          "end_time": "2026-06-22T17:30:00Z",
+          "location": "",
+          "cost_usd": 179,
+          "url": "",
           "notes": ""
         }
       ]
     }
   ],
-  "accomodations": [
-    {
-      "name": "Park Hyatt Tokyo",
-      "address": "3-7-1-2 Nishi-Shinjuku, Shinjuku-ku",
-      "check_in_date": "2024-11-01",
-      "check_out_date": "2024-11-03",
-      "estimated_cost_per_night_usd": 650.0,
-      "url": "https://www.hyatt.com",
-      "notes": "Iconic hotel from 'Lost in Translation'."
-    }
-  ],
   "general_tips": [
-    "Purchase a Suica or Pasmo card for easy transit.",
-    "Cash is still king in smaller ramen shops.",
-    "Rental Wi-Fi is highly recommended for navigation."
+    "June can get hot and humid, so pack light clothing. Bring sunscreen and a hat.",
+    "Be sure to wear comfortable shoes for long days at Disney World.",
+    "Florida is east of the Mississippi, no visa issues – but do check travel advisories."
   ]
 }

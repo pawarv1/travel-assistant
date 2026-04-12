@@ -3,7 +3,7 @@ import { getItinerary } from './services/itinerary.js';
 import { type TravelItinerary } from './types/itinerary.types.ts';
 import ItineraryDisplay from './components/ItineraryDisplay';
 import { Plane, Loader2 } from 'lucide-react';
-
+import Map from './components/Map';
 import cloudsImage from './assets/clouds.jpg';
 
 const App: React.FC = () => {
@@ -11,7 +11,7 @@ const App: React.FC = () => {
   const [itinerary, setItinerary] = useState<TravelItinerary | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const handleGenerate = async (e: React.FormEvent) => {
+  const handleGenerate = async (e: React.SubmitEvent) => {
     e.preventDefault();
     if (!prompt.trim()) return;
 
@@ -68,6 +68,7 @@ const App: React.FC = () => {
         </header>
 
         {/* Results Section */}
+        {itinerary && <Map tripData={itinerary} />}
         {itinerary && <ItineraryDisplay itinerary={itinerary} />}
       </main>
     </div>

@@ -75,7 +75,7 @@ def load_agent():
     
     # define agent using model and servers
     cool_agent = Agent(model, 
-                       output_type=models.TravelItinerary,
+                       output_type=models.TravelItinerary[models.Event],
                        tools=[ddg_tool],
                        tool_timeout=20)
     
