@@ -68,7 +68,11 @@ const App: React.FC = () => {
         </header>
 
         {/* Results Section */}
-        {itinerary && <Map tripData={itinerary} />}
+        {itinerary && (
+          <div className="w-full h-[600px] mb-12 relative z-20">
+            <Map tripData={itinerary} />
+          </div>
+        )}
         {itinerary && <ItineraryDisplay itinerary={itinerary} />}
       </main>
     </div>

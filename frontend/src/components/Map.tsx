@@ -130,6 +130,17 @@ const mapStyles = `
   .map-popup-name { font-size: 14px; font-weight: 700; color: #0a4d68; margin-bottom: 6px; }
   .map-popup-cat { display: inline-flex; align-items: center; gap: 5px; padding: 2px 8px; border-radius: 100px; font-size: 11px; font-weight: 600; margin-bottom: 8px; }
   .map-popup-row { font-size: 12px; color: #5a7080; margin-bottom: 3px; display: flex; gap: 5px; }
+  .map-container-wrap {
+      flex: 1;
+      min-height: 400px;
+      position: relative;
+    }
+
+    .leaflet-container {
+      height: 100% !important;
+      width: 100% !important;
+      z-index: 1;
+    }
 `;
 
 // --- Main Component ---
@@ -139,6 +150,8 @@ const TripMap = ({ tripData }: MapProps) => {
   const locations = useMemo(() => extractLocations(tripData), [tripData]);
   const days = useMemo(() => Array.from(new Set(locations.map((loc) => loc.day))).sort((a, b) => a - b), [locations]);
   const categories = useMemo(() => Object.values(EventType), []);
+
+  console.log(locations);
 
   const [selectedDay, setSelectedDay] = useState<number | 'all'>('all');
   const [activeCategories, setActiveCategories] = useState<EventType[]>([]);
@@ -168,7 +181,7 @@ const TripMap = ({ tripData }: MapProps) => {
   }, [locations, selectedDay, activeCategories]);
 
   const routeColor = selectedDay === 'all' ? '#e8735a' : dayColors[(selectedDay as number - 1) % dayColors.length];
-
+  
   return (
     <div className="map-root">
       <style>{mapStyles}</style>
@@ -216,10 +229,10 @@ const TripMap = ({ tripData }: MapProps) => {
           scrollWheelZoom={true}
         >
           <TileLayer
-            attribution='&copy; OpenStreetMap contributors'
+            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
+          
           <FitBounds locations={filteredLocations} />
 
           {routePositions.length > 1 && (

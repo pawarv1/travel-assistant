@@ -105,7 +105,7 @@ def geocode(locations: list[str]):
     for feature in response["batch"]:
         try:
             coord = feature["features"][0]["geometry"]["coordinates"]
-            coordinates.append((coord[0], coord[1]))
+            coordinates.append((coord[1], coord[0]))
         except (KeyError, IndexError, TypeError):
             coordinates.append((None, None))
 
