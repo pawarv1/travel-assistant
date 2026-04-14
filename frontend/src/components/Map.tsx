@@ -151,8 +151,6 @@ const TripMap = ({ tripData }: MapProps) => {
   const days = useMemo(() => Array.from(new Set(locations.map((loc) => loc.day))).sort((a, b) => a - b), [locations]);
   const categories = useMemo(() => Object.values(EventType), []);
 
-  console.log(locations);
-
   const [selectedDay, setSelectedDay] = useState<number | 'all'>('all');
   const [activeCategories, setActiveCategories] = useState<EventType[]>([]);
 

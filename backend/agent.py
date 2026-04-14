@@ -98,7 +98,7 @@ def load_agents():
     #initialize summary agent
     summary_system_prompt = Path("./system_prompts/SUMMARY_AGENT.md").read_text()
     summary_model = OpenAIChatModel(
-        'qwen2.5:32b-131k',
+        'qwen2.5:7b-16k',
         provider=OllamaProvider(base_url=ollama_url)
     )
     summary_agent = Agent(summary_model,

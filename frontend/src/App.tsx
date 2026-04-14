@@ -55,7 +55,7 @@ const App: React.FC = () => {
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Tell me about your dream trip... e.g., 'A 5-day culinary tour of Tokyo in October for 2 people'"
-              className="w-full p-6 pr-16 border-b-2 border-slate-200 focus:border-red-600 outline-none transition-colors text-xl bg-transparent resize-none h-32"
+              className="w-full p-6 pr-16 bg-slate-100 border-l-4 border-slate-100 focus:border-red-600 outline-none transition-colors text-xl shadow-lg resize-none h-32"
             />
             <button
               type="submit"
@@ -68,12 +68,12 @@ const App: React.FC = () => {
         </header>
 
         {/* Results Section */}
+        {itinerary && <ItineraryDisplay itinerary={itinerary} />}
         {itinerary && (
-          <div className="w-full h-[600px] mb-12 relative z-20">
+          <div className="w-full h-[600px] my-12 relative z-20">
             <Map tripData={itinerary} />
           </div>
         )}
-        {itinerary && <ItineraryDisplay itinerary={itinerary} />}
       </main>
     </div>
   );
