@@ -1,72 +1,45 @@
 from pydantic import BaseModel, Field
-from typing import List
+from datetime import datetime
+from typing import List, Optional, TypeVar, Generic
 from enum import Enum
 
-class TransportMode(str, Enum):
-    FLIGHT = "flight"
-    TRAIN = "train"
-    BUS = "bus"
-    CAR = "car"
-    TAXI = "taxi"
-    WALK = "walk"
-    FERRY = "ferry"
-    OTHER = "other"
+class EventType(str, Enum):
+    TRANSPORT = "transport"
+    LODGING = "lodging"
+    ACTIVITY = "activity"
+    FOOD = "food"
 
-class FlightSegment(BaseModel):
-    airline: str = Field(default="", description="Name of the airline")
-    departure_airport: str = Field(default="", description="IATA code e.g. 'JFK'")
-    arrival_airport: str = Field(default="", description="IATA code e.g. 'NRT'")
-    departure_time: str = Field(default="", description="Scheduled departure time")
-    arrival_time: str = Field(default="", description="Scheduled arrival time")
-    url: str = Field(default="", description="Direct booking or flight info URL")
+class Event(BaseModel):
+    """Represents a single chronological occurrence in the trip."""
+    event_type: EventType = Field(..., description="Category: transport, lodging, activity, or food")
+    title: str = Field(..., description="Name of the event (e.g., 'Flight to NRT', 'Sushi Dinner')")
+    start_time: datetime = Field(..., description="Start time for the event")
+    end_time: datetime = Field(..., description="End time for the event")
+    location: str = Field(..., description="Full address of the location of the event. Formatted as {Street Address}, {City}, {State} {Zip Code}, {Country}")
+    cost_usd: float = Field(..., ge=0, description="Estimated cost per person in USD")
+    url: str = Field(..., description="Official booking or info website")
+    notes: str = Field(default="", description="Details like flight numbers or packing tips")
 
-class Transportation(BaseModel):
-    mode: TransportMode = Field(default=TransportMode.OTHER)
-    from_address: str = Field(default="", description="Full physical address of origin")
-    to_address: str = Field(default="", description="Full physical address of destination")
-    departure_time: str = Field(default="", description="Departure time")
-    arrival_time: str = Field(default="", description="Arrival time")
-    estimated_cost_usd: float = Field(default=0.0, description="Estimated cost per person")
-    segments: List[FlightSegment] = Field(default_factory=list, description="List of individual flight legs. Only use if TransportMode is flight")
-    url: str = Field(default="", description="Booking URL for transport")
-    notes: str = Field(default="", description="Additional info (e.g., train company, terminal)")
+T = TypeVar("T", bound=Event)
 
-class Accomodation(BaseModel):
-    name: str = Field(default="", description="Accomodation name")
-    address: str = Field(default="", description="Full physical address of place of accomodation")
-    check_in_date: str = Field(default="", description="Check-in date")
-    check_out_date: str = Field(default="", description="Check-out date")
-    estimated_cost_per_night_usd: float = Field(default=0.0, description="Cost per night")
-    url: str = Field(default="", description="Accomodation or booking website URL")
-    notes: str = Field(default="", description="Amenities or check-in instructions")
+class DayPlan(BaseModel, Generic[T]):
+    """A collection of events occurring on a specific calendar day."""
+    day_number: int = Field(..., description="The sequence of the trip (e.g., 1, 2, 3)")
+    date: str = Field(..., description="The specific calendar date for this day")
+    summary: str = Field(..., description="A brief one-sentence highlight of the day")
+    events: List[T] = Field(default_factory=list, description="All events in chronological order")
 
-class Activity(BaseModel):
-    name: str = Field(default="", description="Activity name")
-    description: str = Field(default="", description="Brief description of the activity")
-    address: str = Field(default="", description="Full physical address where the activity takes place")
-    start_time: str = Field(default="", description="Start time")
-    end_time: str = Field(default="", description="End time")
-    estimated_cost_usd: float = Field(default=0.0, description="Price per person")
-    url: str = Field(default="", description="Official activity or booking URL")
-    notes: str = Field(default="", description="Tips or reservation requirements")
-
-class DayItinerary(BaseModel):
-    day_number: int = Field(description="The day sequence number (1, 2, etc.)")
-    date: str = Field(default="", description="Calendar date or relative day name")
-    location: str = Field(default="", description="Primary city or area for this day")
-    summary: str = Field(default="", description="One-sentence overview of the day")
-    transportation: List[Transportation] = Field(default_factory=list)
-    activities: List[Activity] = Field(default_factory=list)
-
-class TravelItinerary(BaseModel):
-    title: str = Field(default="", description="Catchy title for the trip")
-    destination: str = Field(default="", description="Main destination city and country")
-    origin: str = Field(default="", description="Starting city and country")
-    start_date: str = Field(default="", description="Trip start date")
-    end_date: str = Field(default="", description="Trip end date")
-    total_days: int = Field(default=0, description="Total count of days")
+class TravelItinerary(BaseModel, Generic[T]):
+    """The root schema for the entire generated trip."""
+    title: str = Field(..., max_length=42, description="A creative and catchy title for the trip")
+    destination: str = Field(..., description="Primary city and country being visited")
+    origin: str = Field(..., description="The starting city and country")
     travelers: int = Field(default=1, ge=1, description="Number of people traveling")
-    summary: str = Field(default="", description="Overall trip description")
-    days: List[DayItinerary] = Field(default_factory=list)
-    accomodations: List[Accomodation] = Field(default_factory=list, description="List of accomodations for the trip")
-    general_tips: List[str] = Field(default_factory=list, description="General travel advice for the destination")
+    days: List[DayPlan[T]] = Field(..., description="The day-by-day breakdown of the itinerary")
+    general_tips: List[str] = Field(default_factory=list, description="Advice on visas, currency, and culture")
+
+class EventResponse(Event):
+    """Response model for Event."""
+    latitude: Optional[float] = Field(default=0, ge=-180, le=180, description="Latitude of the event location")
+    longitude: Optional[float] = Field(default=0, ge=-180, le=180,  description="Longitude of the event location")
+
