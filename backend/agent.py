@@ -7,6 +7,7 @@ from pydantic_ai import Agent, ModelMessage, ModelResponse, ToolCallPart, RunCon
 from pydantic_ai.models.openai import OpenAIChatModel
 from pydantic_ai.providers.ollama import OllamaProvider 
 from pydantic_ai.models.function import FunctionModel, AgentInfo
+from pydantic_ai.models.google import GoogleModel
 from pydantic_ai.common_tools.duckduckgo import duckduckgo_search_tool
 from pydantic_ai.capabilities import WebFetch, WebSearch
 # from pydantic_ai.mcp import load_mcp_servers
@@ -38,12 +39,17 @@ async def model_function(messages: list[ModelMessage], info: AgentInfo) -> Model
 
 async def web_fetch_tool(ctx: RunContext[MainAgentDeps], url: str) -> str:
     """Fetches a URL and converts it to Markdown."""
-    md_generator = DefaultMarkdownGenerator(
-        content_filter=PruningContentFilter(threshold=0.4, threshold_type="fixed")
+
+    content_filter = PruningContentFilter(
+        threshold=0.45, 
+        threshold_type="fixed", 
+        min_word_threshold=10
     )
 
+    md_generator = DefaultMarkdownGenerator(content_filter=content_filter)
+
     config = CrawlerRunConfig(
-        word_count_threshold=10,
+        user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36",
         markdown_generator=md_generator,
         process_iframes=True
     )
@@ -54,10 +60,10 @@ async def web_fetch_tool(ctx: RunContext[MainAgentDeps], url: str) -> str:
             md_response = result.markdown.fit_markdown
         else:
             return f"Failed to fetch {url}: {result.error_message}"
-
-    result = await ctx.deps.summary_agent.run(md_response, usage=ctx.usage)
-
-    return result.output
+    
+    return md_response
+    # result = await ctx.deps.summary_agent.run(md_response, usage=ctx.usage)
+    # return result.output
 
 def add_context() -> str:
     now = datetime.datetime.now()
@@ -108,11 +114,14 @@ def load_agents():
 
     # initialize main agent
     main_system_prompt = Path("./system_prompts/MAIN_AGENT.md").read_text()
-    main_model = OpenAIChatModel(
-        'qwen2.5:32b-131k',
-        provider=OllamaProvider(base_url=ollama_url)
-    )
-    main_agent = Agent(main_model,
+    # main_model = OpenAIChatModel(
+    #     'qwen2.5:32b-131k',
+    #     provider=OllamaProvider(base_url=ollama_url)
+    # )
+
+    google_model = GoogleModel("gemini-2.5-flash")
+
+    main_agent = Agent(google_model,
                        name="main_agent",
                        system_prompt=[main_system_prompt, add_context()],
                        output_type=models.TravelItinerary[models.Event],
