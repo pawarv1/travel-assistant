@@ -14,11 +14,11 @@ class ItineraryRequest(BaseModel):
     prompt: str
     dry_run: bool = False
 
-
 # load environment variables
 load_dotenv()
 
 cool_agent, deps = load_agents()
+    
 
 app = FastAPI()
 

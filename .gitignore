@@ -218,3 +218,5 @@ __marimo__/
 mutagen.yml.lock
 get_gpu.sh
 
+**/__pycache__/*
+
